@@ -1,0 +1,124 @@
+####Exercises
+
+>Give written answers for each question and put them in linked-lists-answers.txt:
+
+    >What are some pros and cons of using linked lists instead of arrays?
+
+A: Linked lists are faster for a computer to process because they do not require sequential memory bits, which allows linked lists to grow easily. However, because the lists can be stored in any available memory, they have to point the processor to the next node in the list. The processor has to jump around more to find all of the nodes in a single list. Also as a con, the list must be searched always starting from the beginning.
+
+    >Come up with a real world example of a linked list.
+
+A: A real world example of a linked list would be a grocery list. In the same way a shopper would bounce around the store finding all of the items on the list, so does the processor in search of all items in a linked list.
+
+####Programming Questions
+
+>The linked list push function should take a value, create a node, and add it to the end of a list. Below is pseudocode for a push function for a singly linked list. However, there is something wrong with it. Submit both an explanation of the bug and a functional implementation of the method.
+
+```
+Given:
+FUNCTION push(element)
+CREATE node
+SET node.value TO element
+SET node.next TO null
+
+IF the head node does not exist
+ THEN SET head to node
+ELSE
+ SET current to head
+ SET current.next to node
+END IF
+END FUNCTION
+```
+
+The `else` statement will cause an error. The `if` statement is providing the function to set THIS node to head if one does not exist, however, with the given `else` statement, the node will ALWAYS set to head, which will make the entire list inaccessible because the `next` locations will always be wrong.
+Further, the `set current.next to node` seems incorrect. I think we need to set the location of the node to node.
+
+```
+Refactored:
+FUNCTION push(element)
+CREATE node
+SET node.value TO element
+SET node.next TO null
+
+IF the head node does not exist
+ THEN SET head to node
+ELSE
+ //SET current to head
+SET node.next to node
+END IF
+END FUNCTION
+
+
+function push(element) {
+  create node;
+  node.value = element;
+  node.next = null;
+
+  if (headNode === null) {
+  headNode = node;
+  }
+  else {
+  node.next = node;
+  }
+}
+```
+
+> Given an unsorted singly linked list, remove all duplicates from the linked list.
+Example:
+Input: a -> c -> d -> d -> a
+Output: a -> c -> d
+
+FUNCTION removeDuplicates(list)
+set temp to headNode
+
+WHILE the temp is not null
+  set nextNode to temp.next
+  WHILE nextNode is not null
+  COMPARE temp to nextNode
+    IF temp.value equals nextNode.value
+      THEN set temp.next = nextNode.next;
+      Delete nextNode;
+    else continue;
+    End IF
+    set nextNode equal to nextNode.next
+    End While
+  set temp equal to temp.next
+  end While
+End function
+
+
+function removeDuplicates(list) {
+  temp = headNode;
+  while (temp !== null) {
+    nextNode = temp.next;
+    while (nextNode !== null) {
+      if (temp.value === nextNode.value) {
+        temp.next = nextNode.next;
+        delete nextNode;
+      }
+      nextNode = nextNode.next;
+    }
+    temp = temp.next;
+  }
+}
+
+
+
+>Given an unsorted singly linked list, reverse it.
+Example:
+Input: a -> b -> c -> d
+Output: d -> c -> b -> a
+
+FUNCTION reverse(list)
+set temp to headNode
+while temp.next does not equal null
+  set temp.next to headNode
+end While
+End Function
+
+function reverse(list) {
+  temp = headNode;
+  while (temp.next !== null) {
+    temp.next = headNode;
+  }
+}

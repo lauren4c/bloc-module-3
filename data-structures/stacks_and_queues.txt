@@ -1,0 +1,102 @@
+###Assignment
+
+#####Exercises
+
+>What is the main difference between a stack and a queue?
+
+A Stack runs multiple requests at once and runs a LIFO priority with the data. A queue runs staged requests - one at a time, so that it does not get overwhelmed and it manages data in a FIFO priority.
+
+>What are the similarities between stacks and queues?
+
+Both are using arranged data structures to complete their work. Both receive information and then change it per the call.
+
+>Imagine you are an engineer tasked with implementing the UNDO and REDO options in a word processor such as Microsoft Word. Which data structure would you use for each option and why?
+
+The stack data structure would be ideal for this task as it implements a Last-in-first-out structure. The last information in (i.e deleting a sentence) would be the first information you want to bring back with an UNDO.
+
+#####Programing Questions
+
+>Given a string, reverse it using a stack. For example, the string "Bloc!" should be converted to "!colB".
+
+FUNCTION REVERSE(given)
+  INIT a new stack
+  FOR each character in original
+    CALL stack.push WITH character
+  END FOR
+  INIT reversed to empty string
+  WHILE stack is not empty
+    CALL stack.pop RETURNING character
+    APPEND character to reversed
+  END WHILE
+  RETURN reversed
+END FUNCTION
+
+function reverse(me) {
+var stack = [];
+    for (let i = 0; i<me.length; i++) {
+      stack.push(me[i]);
+    }
+
+  var reversed = [""] ;
+  while (stack.length > 0 ){
+  var c = stack.pop();
+	console.log(stack);
+  	reversed.push(c);
+  }
+  console.log(reversed.join(""));
+  }
+
+reverse("Bloc!");
+// returns "!colB"
+
+> Implement the pop method of a stack using one queue. Make a FIFO data structure mirror the functionality of a LIFO data structure. Since the internal list is not the same as defined in the checkpoint, it may help to rewrite the pseudocode first.
+
+FUNCTION pop()
+  SET the element at the stack position index to temp
+  DECREMENT the stack position index by 1
+  RETURN temp
+END FUNCTION
+
+
+function pop() {
+  let temp = queue.length - 1;
+  queue.splice(temp, 1);
+  return temp;
+}
+
+
+> Implement the enqueue and dequeue methods defined in the checkpoint inside your own Queue class.
+
+class Queue {
+  constructor() {
+    this.queue = [];
+  }
+  enqueue(element) {
+    this.queue.push(element);
+  }
+
+  dequeue() {
+    return this.queue.shift();
+  }
+
+  pop() {
+    var temp = this.queue.length - 1;
+    this.queue.splice(temp, 1);
+    return temp;
+  }
+}
+
+var list = new Queue();
+
+// add items to list
+list.enqueue("dog");
+console.log(list.queue);
+
+list.enqueue("cat");
+console.log(list.queue);
+
+list.enqueue("fish");
+console.log(list.queue);
+
+console.log(list.pop());
+console.log(list.queue);

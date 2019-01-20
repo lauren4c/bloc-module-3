@@ -1,0 +1,214 @@
+####Exercises
+
+>1. What is a hash table?
+
+A: A hash table is a data structure that links values to a key in order to store and pull specific data. The keys are stored in a certain order so that it can be logically.
+
+>2. What is hashing?
+
+A: Hashing is the function/process that coverts the data (usually a string) into a numerical key - the hash code. It also creates the index, which is a much smaller number.
+
+>3. How does a hash table store data?
+
+A: Data is stored by index. Indices are stored in an array for easy retrieval.
+
+>4. How are hash tables and objects different?
+
+A: Hash tables allow you to store a more varied amount of data per each index, whereas objects are meant to handle similarly formatted data.
+
+
+>5. Determine whether you would use a hash table or an object to store each of the following pieces of data:
+    A list of pets and their unique names.   - Hash Table
+    The name, age, and the birthday of your best friend.   - Object
+    The name and location of every company in a given city.  - Hash table
+    All of the books checked out from a library by a particular individual. - Hash Table
+    The primary and secondary phone numbers for a contact. - Object
+
+>6. Build a system that allows a sales associate to enter a customer's name, address, and phone number into the system and look up customers using their phone numbers. Store this information in a hash table.
+View in repl.it: https://repl.it/@lauren4c/RegularTremendousConcentrate?folderId=
+```
+class customerList {
+  constructor() {
+    this.data = [];
+    this.maxSize = 100;
+  }
+
+hash(string) {
+let hash = 0;
+for (let i =0; i <string.length; i++) {
+  hash += string.charCodeAt(i);
+}
+return hash % this.maxSize;
+}
+
+find(key){
+  let index=this.hash(key);
+        if(!this.data[index]){
+        console.log('Not a Customer');
+        } else {
+        console.log(this.data[index]);
+   }
+}
+
+add(value) {
+  var key = value.phone;
+  var index = this.hash(key);
+  var inserted = false;
+
+  if(this.data[index]=== undefined) {
+    this.data[index] = value;
+  }
+ else {
+   for (var i = 0; i< data[index].length; i++) {
+     if (data[index][i][0]=== key) {
+       data[index][i][1] = value;
+       inserted = true;
+     }
+   }
+   if (inserted = false) {
+     data[index].push([value]);
+   }
+ }
+}
+
+};
+
+var list = new customerList();
+list.add({phone: '9708675309', name: 'Jenni', address: '701 Main st.'});
+list.add({phone: '9703333333', name: 'Tom', address: '123 Park Ave.'});
+list.add({phone: '9701111111', name: 'Mike', address: '23 Federal Ave'});
+
+list.find('9708675309'); //{ phone: '9708675309', name: 'Jenni', address: '701 Main st.' }
+
+list.find('9999999999'); //Not a Customer
+```
+
+>7. Build a system that allows a store owner to track their store's inventory using a hash table for storage.
+View on Repl.it: https://repl.it/@lauren4c/AccomplishedMatureRedundancy
+
+class inventory {
+  constructor() {
+    this.data = [];
+    this.maxSize = 150;
+  }
+
+hash(string) {
+let hash = 0;
+for (let i =0; i <string.length; i++) {
+  hash += string.charCodeAt(i);
+}
+return hash % this.maxSize;
+}
+
+find(key){
+  let index=this.hash(key);
+        if(!this.data[index]){
+        console.log('Not in Inventory');
+        } else {
+        console.log(this.data[index]);
+   }
+}
+
+add(value) {
+  var key = value.item;
+  var index = this.hash(key);
+  var inserted = false;
+
+  if(this.data[index]=== undefined) {
+    this.data[index] = value;
+  }
+ else {
+   for (var i = 0; i< data[index].length; i++) {
+     if (data[index][i][0]=== key) {
+       data[index][i][1] = value;
+       inserted = true;
+     }
+   }
+   if (inserted = false) {
+     data[index].push([value]);
+   }
+ }
+}
+update(item, sold, received) {
+  var key = item;
+  var index = this.hash(key);
+  var net = received - sold;
+    if(!this.data[index]){
+      console.log('Please add item to Inventory');
+        } else {
+    this.data[index].inInventory += net;
+    }
+    console.log(this.data[index]);
+
+}
+
+};
+
+var list = new inventory();
+list.add({item: "snowblower", inInventory: 18});
+list.add({item: "lawn mower", inInventory: 2});
+list.add({item: "shovel", inInventory: 52});
+
+list.find('snowblower'); //{ item: 'snowblower', inInventory: '18' }
+list.find('rake'); //Not in Inventory
+
+list.update("shovel", 2, 0); //{ item: 'shovel', inInventory: 50 }
+list.update("snowblower", 12, 5); //{ item: 'snowblower', inInventory: 11 }
+
+
+>8. Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
+View on Repl.it: https://repl.it/@lauren4c/DeficientCoarseLoaderprogram
+
+class newspaperSearch {
+  constructor() {
+    this.data = [];
+    this.maxSize = 20;
+  }
+
+hash(string) {
+let hash = 0;
+for (let i =0; i <string.length; i++) {
+  hash += string.charCodeAt(i);
+}
+return hash % this.maxSize;
+}
+
+find(publisher, date){
+  var key = publisher + date;
+  let index=this.hash(key);
+        if(!this.data[index]){
+        console.log('Could not locate your newspaper');
+        } else {
+        console.log(this.data[index].headline);
+   }
+}
+
+add(value) {
+  var key = value.publisher + value.date;
+  var index = this.hash(key);
+  var inserted = false;
+
+  if(this.data[index]=== undefined) {
+    this.data[index] = value;
+  }
+ else {
+   for (var i = 0; i< data[index].length; i++) {
+     if (data[index][i][0]=== key) {
+       data[index][i][1] = value;
+       inserted = true;
+     }
+   }
+   if (inserted = false) {
+     data[index].push([value]);
+   }
+ }
+}
+
+};
+
+var list = new newspaperSearch();
+list.add({publisher: 'New York Times', date: '1-3-83', headline: 'Famous births on this day:'});
+list.add({publisher: 'Summit Daily News', date: '5-28-03', headline: 'A moose and a bear walk into a bar...'});
+list.add({publisher: 'Sun Gazette', date: '7-31-45', headline: 'What a long, strange trip it\'s been'});
+
+list.find('Sun Gazette', '7-31-45'); //What a long, strange trip it's been

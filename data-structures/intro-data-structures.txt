@@ -1,0 +1,89 @@
+#### Assignment
+
+>**A line of people at an amusement park ride.**
+
+    The line is composed of members, represented as strings.
+    There is a front to the line, as well as a back.
+    When someone enters the line, place them at the end.
+    People may leave the line whenever they see fit, and those behind them take their place.
+
+Given the above real-world information, use an array data structure to code the following solution.
+
+a) Use an array input: ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+b) Insert a new person, "Mary" at the end of the line. In other words, you should insert Mary after Mike.
+c) Find a person in line named "Josh." This function should return the position of 2 in the array, (recall that arrays are 0-based).
+d) Find a person in line named "Emily." What should your function return if it does not find the item in the array?
+e) What if Ava wants to allow a friend, "Melissa", to cut in line in front of her? How would you code this so Melissa appears before Ava?
+f) If Patrick wants to leave the line, how would you delete him from the array? 
+
+#####Answer:
+
+var rideLine=["Vivian", "Ava", "Josh", "Patrick", "Mike"];
+	
+function newPersonAtEnd(name) {
+	rideLine.push(name)
+	console.log(rideLine)
+	};
+
+newPersonAtEnd("Mary"); 
+// output: ["Vivian", "Ava", "Josh", "Patrick", "Mike", "Mary"]
+
+function findPersonInLine(name) {
+	var personPlace = rideLine.indexOf(name)
+		if (personPlace < 0 ) {
+			return 'Not in line.'
+			}
+		else return personPlace;
+	};
+
+findPersoninLine("Josh"); // returns 2
+findPersoninLine("Emily"); // returns 'Not in line.'
+
+function friendCutsInFront(friendInLine, newFriend) {
+	var linePlace = rideLine.indexOf(friendInLine)
+	rideLine.splice(linePlace, 0, newFriend)
+	console.log(rideLine)
+	};
+
+friendCutsInFront("Ava", "Melissa"); 
+// output: ["Vivian", "Melissa", "Ava", "Josh", "Patrick", "Mike", "Mary"]
+
+function walkedAway(name) {
+	var lostPlace = rideLine.indexOf(name)
+	rideLine.splice(lostPlace, 1)
+	console.log(rideLine)
+};
+
+walkedAway("Patrick");
+// output: ["Vivian", "Melissa", "Ava", "Josh", "Mike", "Mary"]
+
+
+> Provide another real-world example that you can model using a data structure.
+
+**Patrons at a Coffee Shop**
+
+There are 2 lines: one waiting to place an order, and one waiting for their drink to be delivered. 
+After they order, they wait for their drink, and after they get their drink, they are then enjoying their beverage. Since people are so serious about their coffee, the order of the lines always stay the same (no cutsies!), the ordering line just gets longer. The Baristas always put out drinks in the order that the order was placed. 
+
+var waitingToOrder = ["Andy", "Steve", "Sammie", "Sara"];
+var waitingForDrink = ["Lauren", "Annette", "Ed"];
+var enjoyingBeverage = ["Brian", "Kayla"];
+
+function placedOrder(name) {
+	waitingToOrder.shift(name);
+	waitingForDrink.push(name);
+	}
+
+function drinkIsReady(name) {
+	waitingForDrink.shift(name);
+	enjoyingBeverage.push(name);
+}	
+
+function newPatron(name) {
+	waitingToOrder.push(name);
+}
+
+
+> How would your data structure allow developers to access and manipulate the data?
+
+I created reusable functions so that they can be called at any time and in any order. I also used obvious and specfic function and variable names so that it is easy to read for other developers. 
