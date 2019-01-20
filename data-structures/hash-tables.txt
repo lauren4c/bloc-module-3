@@ -26,62 +26,60 @@ A: Hash tables allow you to store a more varied amount of data per each index, w
 
 >6. Build a system that allows a sales associate to enter a customer's name, address, and phone number into the system and look up customers using their phone numbers. Store this information in a hash table.
 View in repl.it: https://repl.it/@lauren4c/RegularTremendousConcentrate?folderId=
-```
+
 class customerList {
   constructor() {
     this.data = [];
     this.maxSize = 100;
   }
 
-hash(string) {
-let hash = 0;
-for (let i =0; i <string.length; i++) {
-  hash += string.charCodeAt(i);
-}
-return hash % this.maxSize;
-}
-
-find(key){
-  let index=this.hash(key);
-        if(!this.data[index]){
-        console.log('Not a Customer');
-        } else {
-        console.log(this.data[index]);
-   }
-}
-
-add(value) {
-  var key = value.phone;
-  var index = this.hash(key);
-  var inserted = false;
-
-  if(this.data[index]=== undefined) {
-    this.data[index] = value;
+  hash(string) {
+    let hash = 0;
+    for (let i = 0; i < string.length; i++) {
+      hash += string.charCodeAt(i);
+    }
+    return hash % this.maxSize;
   }
- else {
-   for (var i = 0; i< data[index].length; i++) {
-     if (data[index][i][0]=== key) {
-       data[index][i][1] = value;
-       inserted = true;
-     }
-   }
-   if (inserted = false) {
-     data[index].push([value]);
-   }
- }
-}
 
-};
+  find(key) {
+    let index = this.hash(key);
+    if (!this.data[index]) {
+      console.log("Not a Customer");
+    } else {
+      console.log(this.data[index]);
+    }
+  }
+
+  add(value) {
+    var key = value.phone;
+    var index = this.hash(key);
+    var inserted = false;
+
+    if (this.data[index] === undefined) {
+      this.data[index] = value;
+    } else {
+      for (var i = 0; i < data[index].length; i++) {
+        if (data[index][i][0] === key) {
+          data[index][i][1] = value;
+          inserted = true;
+        }
+      }
+      if ((inserted = false)) {
+        data[index].push([value]);
+      }
+    }
+  }
+}
 
 var list = new customerList();
-list.add({phone: '9708675309', name: 'Jenni', address: '701 Main st.'});
-list.add({phone: '9703333333', name: 'Tom', address: '123 Park Ave.'});
-list.add({phone: '9701111111', name: 'Mike', address: '23 Federal Ave'});
+list.add({ phone: "9708675309", name: "Jenni", address: "701 Main st." });
+list.add({ phone: "9703333333", name: "Tom", address: "123 Park Ave." });
+list.add({ phone: "9701111111", name: "Mike", address: "23 Federal Ave" });
 
-list.find('9708675309'); //{ phone: '9708675309', name: 'Jenni', address: '701 Main st.' }
+list.find("9708675309"); //{ phone: '9708675309', name: 'Jenni', address: '701 Main st.' }
 
-list.find('9999999999'); //Not a Customer
-```
+list.find("9999999999"); //Not a Customer
+
 
 >7. Build a system that allows a store owner to track their store's inventory using a hash table for storage.
 View on Repl.it: https://repl.it/@lauren4c/AccomplishedMatureRedundancy
@@ -92,68 +90,66 @@ class inventory {
     this.maxSize = 150;
   }
 
-hash(string) {
-let hash = 0;
-for (let i =0; i <string.length; i++) {
-  hash += string.charCodeAt(i);
-}
-return hash % this.maxSize;
-}
-
-find(key){
-  let index=this.hash(key);
-        if(!this.data[index]){
-        console.log('Not in Inventory');
-        } else {
-        console.log(this.data[index]);
-   }
-}
-
-add(value) {
-  var key = value.item;
-  var index = this.hash(key);
-  var inserted = false;
-
-  if(this.data[index]=== undefined) {
-    this.data[index] = value;
+  hash(string) {
+    let hash = 0;
+    for (let i = 0; i < string.length; i++) {
+      hash += string.charCodeAt(i);
+    }
+    return hash % this.maxSize;
   }
- else {
-   for (var i = 0; i< data[index].length; i++) {
-     if (data[index][i][0]=== key) {
-       data[index][i][1] = value;
-       inserted = true;
-     }
-   }
-   if (inserted = false) {
-     data[index].push([value]);
-   }
- }
-}
-update(item, sold, received) {
-  var key = item;
-  var index = this.hash(key);
-  var net = received - sold;
-    if(!this.data[index]){
-      console.log('Please add item to Inventory');
-        } else {
-    this.data[index].inInventory += net;
+
+  find(key) {
+    let index = this.hash(key);
+    if (!this.data[index]) {
+      console.log("Not in Inventory");
+    } else {
+      console.log(this.data[index]);
+    }
+  }
+
+  add(value) {
+    var key = value.item;
+    var index = this.hash(key);
+    var inserted = false;
+
+    if (this.data[index] === undefined) {
+      this.data[index] = value;
+    } else {
+      for (var i = 0; i < data[index].length; i++) {
+        if (data[index][i][0] === key) {
+          data[index][i][1] = value;
+          inserted = true;
+        }
+      }
+      if ((inserted = false)) {
+        data[index].push([value]);
+      }
+    }
+  }
+  update(item, sold, received) {
+    var key = item;
+    var index = this.hash(key);
+    var net = received - sold;
+    if (!this.data[index]) {
+      console.log("Please add item to Inventory");
+    } else {
+      this.data[index].inInventory += net;
     }
     console.log(this.data[index]);
-
+  }
 }
 
-};
-
 var list = new inventory();
-list.add({item: "snowblower", inInventory: 18});
-list.add({item: "lawn mower", inInventory: 2});
-list.add({item: "shovel", inInventory: 52});
+list.add({ item: "snowblower", inInventory: 18 });
+list.add({ item: "lawn mower", inInventory: 2 });
+list.add({ item: "shovel", inInventory: 52 });
 
-list.find('snowblower'); //{ item: 'snowblower', inInventory: '18' }
-list.find('rake'); //Not in Inventory
+list.find("snowblower"); //{ item: 'snowblower', inInventory: '18' }
+list.find("rake"); //Not in Inventory
 
 list.update("shovel", 2, 0); //{ item: 'shovel', inInventory: 50 }
 list.update("snowblower", 12, 5); //{ item: 'snowblower', inInventory: 11 }
+
 
 
 >8. Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
@@ -165,50 +161,60 @@ class newspaperSearch {
     this.maxSize = 20;
   }
 
-hash(string) {
-let hash = 0;
-for (let i =0; i <string.length; i++) {
-  hash += string.charCodeAt(i);
-}
-return hash % this.maxSize;
-}
-
-find(publisher, date){
-  var key = publisher + date;
-  let index=this.hash(key);
-        if(!this.data[index]){
-        console.log('Could not locate your newspaper');
-        } else {
-        console.log(this.data[index].headline);
-   }
-}
-
-add(value) {
-  var key = value.publisher + value.date;
-  var index = this.hash(key);
-  var inserted = false;
-
-  if(this.data[index]=== undefined) {
-    this.data[index] = value;
+  hash(string) {
+    let hash = 0;
+    for (let i = 0; i < string.length; i++) {
+      hash += string.charCodeAt(i);
+    }
+    return hash % this.maxSize;
   }
- else {
-   for (var i = 0; i< data[index].length; i++) {
-     if (data[index][i][0]=== key) {
-       data[index][i][1] = value;
-       inserted = true;
-     }
-   }
-   if (inserted = false) {
-     data[index].push([value]);
-   }
- }
-}
 
-};
+  find(publisher, date) {
+    var key = publisher + date;
+    let index = this.hash(key);
+    if (!this.data[index]) {
+      console.log("Could not locate your newspaper");
+    } else {
+      console.log(this.data[index].headline);
+    }
+  }
+
+  add(value) {
+    var key = value.publisher + value.date;
+    var index = this.hash(key);
+    var inserted = false;
+
+    if (this.data[index] === undefined) {
+      this.data[index] = value;
+    } else {
+      for (var i = 0; i < data[index].length; i++) {
+        if (data[index][i][0] === key) {
+          data[index][i][1] = value;
+          inserted = true;
+        }
+      }
+      if ((inserted = false)) {
+        data[index].push([value]);
+      }
+    }
+  }
+}
 
 var list = new newspaperSearch();
-list.add({publisher: 'New York Times', date: '1-3-83', headline: 'Famous births on this day:'});
-list.add({publisher: 'Summit Daily News', date: '5-28-03', headline: 'A moose and a bear walk into a bar...'});
-list.add({publisher: 'Sun Gazette', date: '7-31-45', headline: 'What a long, strange trip it\'s been'});
+list.add({
+  publisher: "New York Times",
+  date: "1-3-83",
+  headline: "Famous births on this day:"
+});
+list.add({
+  publisher: "Summit Daily News",
+  date: "5-28-03",
+  headline: "A moose and a bear walk into a bar..."
+});
+list.add({
+  publisher: "Sun Gazette",
+  date: "7-31-45",
+  headline: "What a long, strange trip it's been"
+});
 
-list.find('Sun Gazette', '7-31-45'); //What a long, strange trip it's been
+list.find("Sun Gazette", "7-31-45"); //What a long, strange trip it's been
