@@ -1,0 +1,158 @@
+####Exercises
+
+>1. What is a binary tree and what makes it unique to other trees?
+
+A: A binary tree structure is one that each node may point to a left child and/or a right child.
+
+>2. What is a heuristic?
+
+A: It is a guess at the best answer to a problem quickly.
+
+>3. What is another problem besides the shortest-path problem that requires the use of heuristics?
+
+A: An internet search algorithm would be another use of heuristics because the algorithm has to quickly make a guess as to what the BEST results are for the user.
+
+>4. What is the difference between a depth-first search and a breadth-first search?
+
+A: The DFS goes down each branch of the tree before it explores further. A BFS explores each row of nodes before moving on.
+
+>5. Explain in your own words what an undirected, a-cyclic, unweighted graph is.
+
+A: A graph that is undirected, a-cyclic, and unweighted is like a linked list that has direction of travel in both ways. A tree would be another example, as the a-cylic nature provides for dead-ends. Because the graph is unweighted, there is no added or decreased cost when traversing nodes.
+
+>6. What kind of graph is a binary search tree?
+
+A: It is an undirected, and a-cylic because it produces dead ends and travels down before it comes back up.
+
+
+#### Programming Questions
+>For the following questions, describe in words how you could solve the problem and then do so. Use the depiction of the Binary Search Tree to refer to the examples.
+
+> 1. Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
+Example: The value 10 exists in the tree. The value 23 does not exist in the tree.
+
+FUNCTION findValue(x)
+  SET temp to root
+  while temp still exists
+  IF temp is greater than x
+    SET temp.right to temp
+
+ if temp is less than x
+  SET temp.left to temp
+
+IF temp is equal to x,
+    Return "Found."
+
+  else return "Not Found."
+end IF
+end While
+END FUNCTION
+
+function findValue(x) {
+  var temp = root;
+  while (temp !== null) {
+    if (temp > x) {
+      temp = temp.right;
+    }
+
+    if (temp < x) {
+      temp = temp.left;
+    }
+
+    if (temp === x) {
+      return "Found.";
+    } else return "Not Found.";
+  }
+}
+
+findValue(10); //Found
+findValue(23); //Not Found.
+
+
+> 2. Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
+Example: The distance between the nodes 4 and 10 is 4. The distance between the nodes 8 and 10 is 1. The distance between the nodes 1 and 14 is 4.
+
+//We have to find the lowest common ancestor (LCA) between the n1 and n2, and then the total distance will be LCA distance to n1 PLUS LCA distance to n2.
+
+FUNCTION findDistance(root, n1, n2)
+  set lca equal to ""
+  set distance equal to 0
+  return (distanceFromLCA(lca, n1, distance) + distanceFromLCA(lca, n2, distance))
+
+  function distanceFromLCA(parent, child, distance)
+  IF parent is equal to child
+    Return distance
+  if child is equal to child.right or child is equal to child.left
+    distance equals distance plus 1;
+    return distance
+  if child.value is less than parent.value
+    distance equals distance plus 1;
+    return distanceFromLCA(parent.left, child, distance)
+    Else
+    distance equals distance plus 1;
+    return distanceFromLCA(parent.right, child, distance)
+      END IF
+    END FUNCTION
+
+function findLCA(root, n1, n2)
+  if root does not exist
+  return null
+
+  if n1 is equal to root or n2 is equal to root
+    return root
+
+    set left equal to findLCA(root.left, n1, n2)
+    set right equal to findLCA(root.right, n1, n2);
+    if left is not equal to null and right is not equal to null
+      return root
+
+      if left is equal to null
+        return right
+
+      else return left
+
+      END if
+  end FUNCTION
+
+end function
+
+function findDistance(root, n1, n2) {
+  var lca = findLCA(root, n1, n2);
+  var distance = 0;
+  return (
+    distanceFromLCA(lca, n1, distance) + distanceFromLCA(lca, n2, distance)
+  );
+
+  function distanceFromLCA(ancestor, child, distance) {
+    if (ancestor === child) {
+      return distance;
+    }
+    if (child === ancestor.right || child === ancestor.left) {
+      distance += 1;
+      return distance;
+    }
+    if (child.value < ancestor.value) {
+      distance += 1;
+      return distanceFromLCA(ancestor.left, child, distance);
+    } else return distanceFromLCA(ancestor.right, child, distance);
+  }
+
+  function findLCA(root, n1, n2) {
+    if (root === null) {
+      return null;
+    }
+    if (n1 === root || n2 === root) {
+      return root;
+    }
+
+    var left = findLCA(root.left, n1, n2);
+    var right = findLCA(root.right, n1, n2);
+
+    if (left !== null && right !== null) {
+      return root;
+    }
+    if (left === null) {
+      return right;
+    } else return left;
+  }
+}
