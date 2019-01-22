@@ -1,0 +1,47 @@
+###Assignment
+
+> 1. Using proper pseudo-code, describe the following primitive algorithms:
+
+        Making coffee;
+function makeCoffee
+    PLACE filter in coffeeMaker
+    ADD ground to filter
+    ADD water to reservoir
+    PLACE carafe under the nozzle
+    Press START button on coffee maker
+    AFTER coffeeMaker has finished
+    remove carafe and pour coffee into mug
+  END Function
+
+        Washing dishes;
+Function washDishes
+set dish to number of dishes to wash
+  WHILE dish does not equal zero
+    Pick up the dish
+    Use a soapy sponge to go over all surfaces of the dish to remove all particles
+    Rinse dish with clean water
+    Set dish to dry
+  END WHILE
+END Function
+
+        A choice of your own.
+function makeTheBed
+    while fittedSheet is not on
+        Place corner of sheet on corresponding corner of mattress
+        tuck sheet around corner of the mattress
+      End While
+    THEN lay Flat sheet on top of the bed
+    tuck bottom corners of sheet under the mattress
+    Place duvet on top of mattress
+    place pillows at the top of the makeTheBed
+  End Function
+
+>2. As with the knot algorithm, there may be more than one way to solve the problem. It is essential to try to pick the best algorithm for a situation. Name three companies who created an algorithm that made them successful, e.g., Google's search algorithm. It doesn't need to be a tech example (such as a recipe or manufacturing a product). Google's algorithm produces more relevant results than other search engines; what about each of your cases make them stand out?
+A: Facebook: While unpopular, Facebook's algorithm for showing relevant ads to users has made them a billion dollar company. Despite all of the negativity surrounding Facebook at this time, it still one of the most popular apps in the world.
+
+Tesla: Tesla successfully created a technical algorithm in the software of its cars, and also perfected the "electric car" algorithm which other manufacturers haven't been able to do. The self-driving software algorithm is safely allowing drivers to let their car do the hard work and allow the driver to relax, especially in heavy traffic. Tesla continues to produce the best-selling electric cars ever made through design and marketing, which created desirable electric sports car.
+
+Magnolia Home: Chip and Joanna Gaines, owners and creators of Magnolia, have created a formula in which everything turns to gold in their hands. Real Estate, house flipping, shopping/community centers, books, Target Product line, etc, have been successful because of all of their other products. They have created a brand and a lifestyle that people can relate to and, ultimately buy into. 
+
+>3. Hypothesize about what constitutes an efficient algorithm versus an inefficient algorithm.
+A: Efficient algorithms would have the last amount of steps required to solve the problem. They would be in logical order and be refactored to run quickly. Inefficient algorithms, on the other hand, may contain extraneous steps, and/or complete them out of order.
