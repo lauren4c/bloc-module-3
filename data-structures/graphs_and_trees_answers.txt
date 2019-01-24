@@ -22,7 +22,7 @@ A: A graph that is undirected, a-cyclic, and unweighted is like a linked list th
 
 >6. What kind of graph is a binary search tree?
 
-A: It is an undirected, and a-cylic because it produces dead ends and travels down before it comes back up.
+A: It is an undirected, unweighted and a-cylic because it produces dead ends and travels down before it comes back up. There is no "cost" to traversing between nodes.
 
 
 #### Programming Questions
@@ -34,39 +34,39 @@ Example: The value 10 exists in the tree. The value 23 does not exist in the tre
 FUNCTION findValue(x)
   SET temp to root
   while temp still exists
-  IF temp is greater than x
-    SET temp.right to temp
+    IF temp value is greater than x
+      SET temp.right to temp
 
- if temp is less than x
+ if temp value is less than x
   SET temp.left to temp
 
-IF temp is equal to x,
-    Return "Found."
+  ELSE IF temp value is equal to x,
+    Return "Value Exists"
 
-  else return "Not Found."
+  IF temp does not exist,
+  return "Value does not exist."
 end IF
 end While
 END FUNCTION
 
-function findValue(x) {
-  var temp = root;
+indValue(value) {
+  var temp = this.root;
   while (temp !== null) {
-    if (temp > x) {
+    if (temp.value < value) {
       temp = temp.right;
-    }
-
-    if (temp < x) {
+    } else if (temp.value > value) {
       temp = temp.left;
+    } else if (temp.value === value) {
+      return "Value exists.";
     }
-
-    if (temp === x) {
-      return "Found.";
-    } else return "Not Found.";
+  }
+  if (temp === null) {
+    return "Value Does not exist.";
   }
 }
 
-findValue(10); //Found
-findValue(23); //Not Found.
+findValue(10); //Value Exists
+findValue(23); //Value does not exist.
 
 
 > 2. Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
@@ -74,85 +74,74 @@ Example: The distance between the nodes 4 and 10 is 4. The distance between the 
 
 //We have to find the lowest common ancestor (LCA) between the n1 and n2, and then the total distance will be LCA distance to n1 PLUS LCA distance to n2.
 
-FUNCTION findDistance(root, n1, n2)
-  set lca equal to ""
-  set distance equal to 0
-  return (distanceFromLCA(lca, n1, distance) + distanceFromLCA(lca, n2, distance))
+FUNCTION findDistance(currentAncestor, n1, n2)
+  if there is no current ancestor
+    THEN currentAncestor = this.root
 
-  function distanceFromLCA(parent, child, distance)
-  IF parent is equal to child
-    Return distance
-  if child is equal to child.right or child is equal to child.left
-    distance equals distance plus 1;
-    return distance
-  if child.value is less than parent.value
-    distance equals distance plus 1;
-    return distanceFromLCA(parent.left, child, distance)
-    Else
-    distance equals distance plus 1;
-    return distanceFromLCA(parent.right, child, distance)
-      END IF
-    END FUNCTION
+  if n1 is greater than n2
+    SET temp to n2
+    set n2 to n1
+    set n1 to temp
+  END IF
 
-function findLCA(root, n1, n2)
-  if root does not exist
-  return null
+IF currentAncestor.value is greater than n1 AND currentAncestor.value is greater than n2
+  return function findDistance of currentAncestor.left, n1, n2
 
-  if n1 is equal to root or n2 is equal to root
-    return root
+IF currentAncestor.value is less than n1 AND currentAncestor.value is less than n2
+    return function findDistance of currentAncestor.right, n1, n2
 
-    set left equal to findLCA(root.left, n1, n2)
-    set right equal to findLCA(root.right, n1, n2);
-    if left is not equal to null and right is not equal to null
-      return root
+IF currentAncestor.value is greater than or equal to n1 AND currentAncestor.value is less than or equal to n2
+      return function distanceFromRoot of currentAncestor and n1 PLUS function distanceFromRoot of currentAncestor and n2
+END FUNCTION
 
-      if left is equal to null
-        return right
-
-      else return left
-
-      END if
-  end FUNCTION
-
+function distanceFromRoot(ancestor, n)
+  IF there is no ancestor OR ancestor is equal to n
+    return 0
+  END IF
+  IF ancestor.value is greater than n
+    return 1 plus function distanceFromRoot(ancestor.left, n)
+  END IF
+  IF ancestor.value is less than n
+    return 1 plus function distanceFromRoot(ancestor.right, n)
+    END IF
 end function
 
-function findDistance(root, n1, n2) {
-  var lca = findLCA(root, n1, n2);
-  var distance = 0;
-  return (
-    distanceFromLCA(lca, n1, distance) + distanceFromLCA(lca, n2, distance)
-  );
-
-  function distanceFromLCA(ancestor, child, distance) {
-    if (ancestor === child) {
-      return distance;
-    }
-    if (child === ancestor.right || child === ancestor.left) {
-      distance += 1;
-      return distance;
-    }
-    if (child.value < ancestor.value) {
-      distance += 1;
-      return distanceFromLCA(ancestor.left, child, distance);
-    } else return distanceFromLCA(ancestor.right, child, distance);
+findDistance(n1, n2, currentAncestor) {
+  if (!currentAncestor) {
+    currentAncestor = this.root;
+  }
+  if (n1 > n2) {
+    let temp = n2;
+    n2 = n1;
+    n1 = temp;
   }
 
-  function findLCA(root, n1, n2) {
-    if (root === null) {
-      return null;
-    }
-    if (n1 === root || n2 === root) {
-      return root;
-    }
-
-    var left = findLCA(root.left, n1, n2);
-    var right = findLCA(root.right, n1, n2);
-
-    if (left !== null && right !== null) {
-      return root;
-    }
-    if (left === null) {
-      return right;
-    } else return left;
+  if (currentAncestor.value > n1 && currentAncestor.value > n2) {
+    return this.findDistance(currentAncestor.left, n1, n2);
+  }
+  if (currentAncestor.value < n1 && currentAncestor.value < n2) {
+    return this.findDistance(currentAncestor.right, n1, n2);
+  }
+  if (currentAncestor.value >= n1 && currentAncestor.value <= n2) {
+    return (
+      this.distanceFromRoot(currentAncestor, n1) +
+      this.distanceFromRoot(currentAncestor, n2)
+    );
   }
 }
+
+distanceFromRoot(ancestor, n) {
+  if (!ancestor || ancestor.value === n) {
+    return 0;
+  }
+  if (ancestor.value > n) {
+    return 1 + this.distanceFromRoot(ancestor.left, n);
+  }
+  if (ancestor.value < n) {
+    return 1 + this.distanceFromRoot(ancestor.right, n);
+  }
+}
+
+
+Here it is in practice:
+https://repl.it/@lauren4c/VacantIntrepidUsernames
