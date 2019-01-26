@@ -1,0 +1,52 @@
+####Assignment
+
+>1. Define and compare recursion and iteration.
+A: Recursion occurs when a function is written to call itself within given parameters. Iteration utilizes a loop to repeat a function. While both of these processes are similar in that they repeat themselves, they way in which they are repeated is very different.
+Recursive functions usually run slower and can use a lot of system resources, whereas Iterative functions tend to faster to run, but can be harder to implement.
+
+>2. Name five algorithms that are commonly implemented by recursion.
+Merge Sort, quick sort, breadth-first tree/graph search, depth-first tree/graph search, and binary search.
+
+>3. When should you use recursion, and when should you avoid recursion? Give examples for each.
+Recursion solutions are most practically used for factorial functions, like in a merge or search function.
+It should be avoided when a process will take too long or take up too much system resources, such as in the fibonacci example.
+
+>4. Compare the recursive and iterative solutions to the three algorithms from the checkpoint (factorial, maximum, and fibonacci). What is similar, and what is different?
+The base cases and IF statements are the same in both the iterative and recursion solutions, as is the basic math. However, the way the math is applied is different. In the iterative versions, a FOR-loop is called to run through the math. In the recursive versions, the math is done as part of re-calling the function on itself.
+
+>5. Given a multi-dimensional collection (such as an array) where the number of dimensions is unknown, write a recursive algorithm to count the number of items in the entire collection.
+```
+function countItems(array) {
+  if (array.length) {
+    return 1 + countItems(array.slice(1))
+  }
+  else
+  return 0;
+}
+
+countItems([1, 2, 3, 4, 5]); //5
+countItems(['apple', 'orange', 'plum']); //3
+```
+
+>6. A palindrome is a word or phrase whose spelling is the same either direction (e.g., racecar). Write a recursive algorithm to determine if a given word or phrase is a palindrome.
+
+```
+function checkForPalindrome(word) {
+  let lowerCase = word.toLowerCase();
+  let length = word.length;
+  if(length === 0 || length === 1){
+    return true;
+  }
+
+  if (lowerCase[0] === lowerCase[length - 1]) {
+      return checkForPalindrome( lowerCase.slice(1, length -1));
+  }
+  else return false;
+}
+
+checkForPalindrome('TacocAt'); //true
+checkForPalindrome('steve'); //false
+```
+
+>7. Google Easter Egg: Google the term "recursion". Google will prompt you with "Did you mean: recursion". Explain why this behavior exhibits properties of recursion.
+A: Hah. That's actually pretty cute. Google asking you "Did you mean this word" in a recursive way. If you click on that link, it serves the same results and keeps asking you if you meant "recursion." - it is calling the same search over and over again.
