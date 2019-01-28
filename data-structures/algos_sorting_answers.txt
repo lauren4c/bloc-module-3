@@ -1,0 +1,78 @@
+###Assignment
+
+>1. Write pseudocode for bubble sort.
+
+function bubbleSort(collection)
+repeat
+  SET swapped to false
+
+  FOR i = FIRST INDEX of collection to LAST INDEX of collection -1
+    if collection[i] > collection[i +1] THEN
+      set temp to collection[i]
+      set collection [i] to collection[i + 1]
+      set collection [i + 1] to temp
+      set swapped to true
+    END IF
+  END FOR
+  until swapped is false
+
+  return collection
+end function
+
+>2. Write pseudocode for quicksort.
+
+function quickSort(collection)
+
+  IF collection length <= 1
+    return collection
+  ELSE
+    set pivot to collection[-1]
+    FOR FOR i = FIRST INDEX of collection to LAST INDEX of collection -1
+      IF collection[i] is greater than pivot
+        set temp to collection[i]
+        set collection[i] to pivot
+        set pivot to temp
+      END IF
+    END FOR
+    CALL quickSort WITH FIRST INDEX to pivot - 1 elements of collection RETURNING left
+    CALL quickSort WITH pivot + 1 to LAST INDEX elements of collection RETURNING right
+  END IF
+      CALL merge WITH left AND right RETURNING the new collection
+END FUNCTION
+
+FUNCTION merge(left, right)
+  INIT collection to empty array
+  WHILE left AND right are NOT empty
+   IF FIRST element of left <= FIRST element of right THEN
+     APPEND FIRST element of left to collection
+     REMOVE FIRST element of left from left
+   ELSE IF FIRST element of left > FIRST element of right THEN
+     APPEND FIRST element of right to collection
+     REMOVE FIRST element of right from right
+   END IF
+  END WHILE
+  IF left is NOT empty THEN
+   APPEND left to collection
+  END IF
+  IF right is NOT empty THEN
+   APPEND right to collection
+  END IF
+  RETURN collection
+END FUNCTION
+
+
+>3. We talked about time complexity in a previous checkpoint, and how to get an idea of the efficiency of an algorithm. After looking at the pseudocode for the above sorting methods, identify why merge sort and quick sort are much more efficient than the others. Walking through each algorithm with a few sample collections may help.
+A: Merge sort and Quick sort are much more efficient because they break down the collections into smaller pieces, then run the sorting, and then merge the pieces together in their proper order. Where as the bubble sort and insertion iterate through the entire collection to compare one item. If a collection is 1,000 or 1,000,000 items long, that quickly becomes a resource problem.
+
+>4. All of the sorts addressed in this checkpoint are known as comparison sorts. Research bucket sort and explain how it works. What is the ideal input for bucket sort?
+A: A bucket sort works by creating bucket for every item in an array, and then distributing each element of the array into a bucket. Each bucket is then sorted individually through recursive method. Then the buckets are then concatenated back together in their proper order. The ideal input for a bucket sort is a uniformly distributed list over a range.
+
+pseudocode for a bucket sort looks like:
+function bucketSort(array, k)
+  SET buckets  to new array of k empty lists
+  set M to the maximum key value in the array
+  for i = 1 to length(array) do
+    insert array[i] into buckets[floor(array[i] / M * k)]
+  for i = 1 to k do
+    nextSort(buckets[i])
+  return the concatenation of buckets[1], ...., buckets[k]
